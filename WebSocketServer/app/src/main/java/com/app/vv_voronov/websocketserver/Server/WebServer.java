@@ -1,10 +1,13 @@
 package com.app.vv_voronov.websocketserver.Server;
 
 import org.java_websocket.WebSocket;
+import org.java_websocket.WebSocketImpl;
+import org.java_websocket.framing.Framedata;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
 
 import de.greenrobot.event.EventBus;
 
@@ -27,6 +30,11 @@ public class WebServer extends WebSocketServer {
     }
 
     @Override
+    public void onWebsocketPing(WebSocket conn, Framedata f) {
+        super.onWebsocketPing(conn, f);
+    }
+
+    @Override
     public void onClose(WebSocket conn, int code, String reason, boolean remote) {
 
     }
@@ -42,10 +50,14 @@ public class WebServer extends WebSocketServer {
 
     }
 
+    @Override
+    public ByteBuffer createBuffer() {
+        return ByteBuffer.allocate( 254 );
+    }
 
-
-     public void sendMessage(String message) {
+    public void sendMessage(String message) {
         socket.send(message);
     }
+
 
 }
