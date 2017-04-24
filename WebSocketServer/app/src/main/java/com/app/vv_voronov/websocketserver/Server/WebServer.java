@@ -3,6 +3,7 @@ package com.app.vv_voronov.websocketserver.Server;
 import org.java_websocket.WebSocket;
 import org.java_websocket.WebSocketImpl;
 import org.java_websocket.framing.Framedata;
+import org.java_websocket.framing.FramedataImpl1;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
@@ -19,6 +20,10 @@ public class WebServer extends WebSocketServer {
 
     private WebSocket socket;
 
+    public WebSocket getSocket() {
+        return socket;
+    }
+
     public WebServer(InetSocketAddress address) {
         super(address);
     }
@@ -29,12 +34,7 @@ public class WebServer extends WebSocketServer {
 
     }
 
-    @Override
-    public void onWebsocketPing(WebSocket conn, Framedata f) {
-        super.onWebsocketPing(conn, f);
-    }
-
-    @Override
+   @Override
     public void onClose(WebSocket conn, int code, String reason, boolean remote) {
 
     }
@@ -57,6 +57,13 @@ public class WebServer extends WebSocketServer {
 
     public void sendMessage(String message) {
         socket.send(message);
+    }
+
+    public void sendPing(WebSocket conn)
+    {
+        FramedataImpl1 frame = new FramedataImpl1(Framedata.Opcode.PING);
+       // frame.setFin(true);
+        conn.sendFrame(frame);
     }
 
 
