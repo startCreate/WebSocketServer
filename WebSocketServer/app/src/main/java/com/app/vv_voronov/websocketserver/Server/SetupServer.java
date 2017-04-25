@@ -10,6 +10,7 @@ import org.java_websocket.framing.FramedataImpl1;
 import java.net.InetSocketAddress;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicLong;
 
 
 import de.greenrobot.event.EventBus;
@@ -25,6 +26,12 @@ public class SetupServer implements Runnable {
     private WebServer server;
     private WebSocket socket;
 
+    public AtomicLong getCount() {
+        return count;
+    }
+
+    private AtomicLong count = new AtomicLong();
+
 
     public SetupServer(int port) {
         server = new WebServer(new InetSocketAddress(port));
@@ -37,6 +44,7 @@ public class SetupServer implements Runnable {
 
     @SuppressWarnings("UnusedDeclaration")
     public void onEvent(MessageEvent event) {
+        count.incrementAndGet();
         String message = event.getMessage();
         server.sendMessage("echo: " + message);
     }

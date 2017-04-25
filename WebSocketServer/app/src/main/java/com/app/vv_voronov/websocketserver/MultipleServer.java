@@ -7,6 +7,8 @@ import com.app.vv_voronov.websocketserver.Server.SetupServer;
 import com.app.vv_voronov.websocketserver.Server.WebServer;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.atomic.AtomicLong;
+
 import de.greenrobot.event.EventBus;
 
 /**
@@ -15,6 +17,8 @@ import de.greenrobot.event.EventBus;
 
 public class MultipleServer extends Application {
     private static final int FIRST_SERVER_PORT = 56001;
+    private AtomicLong coutnAll;
+
 
     private WebServer server;
 

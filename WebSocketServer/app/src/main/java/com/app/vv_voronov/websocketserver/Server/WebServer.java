@@ -32,6 +32,7 @@ public class WebServer extends WebSocketServer {
     public void onOpen(WebSocket conn, ClientHandshake handshake) {
         socket = conn;
 
+
     }
 
    @Override
@@ -62,8 +63,7 @@ public class WebServer extends WebSocketServer {
     public void sendPing(WebSocket conn)
     {
         FramedataImpl1 frame = new FramedataImpl1(Framedata.Opcode.PING);
-       // frame.setFin(true);
-        conn.sendFrame(frame);
+          conn.sendFrame(frame);
     }
 
 
